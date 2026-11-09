@@ -2,46 +2,38 @@ import { useState } from 'react';
 import ThreeBackground from './ThreeBackground';
 
 export default function LandingPage() {
-  // Lembre-se do &confirm=t para pular o aviso de vírus do Google Drive
   const linkDownloadLazarus = "https://drive.google.com/uc?export=download&id=1cYb4LcaTX8_FYneZTf89SXIyhJ7X-TP2&confirm=t";
   const linkSistemaWeb = "https://arcanevoid.vercel.app";
 
-  // 🔥 IMAGENS DO CARROSSEL (Coloque as suas fotos na pasta public com esses nomes)
   const imagensCarrossel = [
     { src: "/print-lazarus.png", alt: "Sistema Desktop Lazarus", titulo: "Gerenciamento Desktop" },
-    { src: "/print-web-chat.png", alt: "Chat da Mesa Virtual", titulo: "Chat em Tempo Real" },
-    { src: "/print-web-mesa.png", alt: "Mesa Virtual e Tokens", titulo: "Mesa Interativa" }
+    { src: "/print-web-chat.png", alt: "Tela principal web", titulo: "O véu entre os mundos se abre para aqueles que ousam sonhar." },
+    { src: "/print-web-mesa.png", alt: "Chat da Mesa Virtual", titulo: "Chat em Tempo Real" }
   ];
 
   const [slideAtual, setSlideAtual] = useState(0);
 
-  const proximoSlide = () => {
-    setSlideAtual((prev) => (prev === imagensCarrossel.length - 1 ? 0 : prev + 1));
-  };
-
-  const slideAnterior = () => {
-    setSlideAtual((prev) => (prev === 0 ? imagensCarrossel.length - 1 : prev - 1));
-  };
+  const proximoSlide = () => setSlideAtual((prev) => (prev === imagensCarrossel.length - 1 ? 0 : prev + 1));
+  const slideAnterior = () => setSlideAtual((prev) => (prev === 0 ? imagensCarrossel.length - 1 : prev - 1));
 
   return (
     <div className="relative min-h-screen bg-[#0a0416] font-sans flex flex-col overflow-x-hidden">
       <ThreeBackground />
       
-      <div className="fixed inset-0 z-0 bg-gradient-to-b from-[#0a0416]/60 via-[#0a0416]/90 to-[#0a0416] pointer-events-none"></div>
+      {/* Overlay de gradiente para manter o texto legível */}
+      <div className="fixed inset-0 z-0 bg-gradient-to-b from-[#0a0416]/70 via-[#0a0416]/90 to-[#0a0416] pointer-events-none"></div>
 
       <div className="relative z-10 flex flex-col">
         
         {/* CABEÇALHO */}
         <header className="w-full px-8 py-6 flex justify-between items-center backdrop-blur-md bg-black/40 border-b border-purple-500/20 sticky top-0 z-50">
-          <div className="flex items-center">
-            <h1 className="text-3xl font-bold text-white tracking-widest drop-shadow-[0_0_10px_rgba(168,85,247,0.8)]" style={{ fontFamily: "'Cinzel', serif" }}>ARCANEVOID</h1>
-          </div>
+          <h1 className="text-3xl font-bold text-white tracking-widest drop-shadow-[0_0_10px_rgba(168,85,247,0.8)]" style={{ fontFamily: "'Cinzel', serif" }}>ARCANEVOID</h1>
           <a href={linkSistemaWeb} className="px-6 py-2 bg-[#9333ea] hover:bg-[#a855f7] text-white rounded-md font-bold transition-all shadow-[0_0_15px_rgba(147,51,234,0.5)] border border-purple-400/50">
             ACESSAR SISTEMA
           </a>
         </header>
 
-        {/* SEÇÃO 1: HERO */}
+        {/* HERO SECTION */}
         <main className="min-h-[85vh] flex flex-col items-center justify-center text-center px-4 pointer-events-none">
           <h2 className="text-5xl md:text-8xl font-bold text-white mb-6 drop-shadow-[0_0_30px_rgba(168,85,247,0.9)]" style={{ fontFamily: "'Cinzel', serif" }}>
             ArcaneVoid
@@ -65,87 +57,105 @@ export default function LandingPage() {
           </div>
         </main>
 
-        {/* SEÇÃO 2: CARROSSEL DE IMAGENS */}
-        <section className="relative z-10 bg-[#0d0714]/95 backdrop-blur-xl border-t border-purple-500/20 py-24">
-          <div className="max-w-5xl mx-auto px-6">
+        {/* NOVA SEÇÃO: A JORNADA (RPG e Psicologia) */}
+        <section className="relative z-10 bg-[#0d0714]/95 backdrop-blur-xl border-t border-purple-500/20 py-24 overflow-hidden">
+          {/* Efeito 3D CSS de fundo */}
+          <div className="absolute top-10 left-10 w-64 h-64 bg-purple-600/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-10 right-10 w-80 h-80 bg-blue-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+
+          <div className="max-w-5xl mx-auto px-6 relative z-20">
+            <h3 className="text-4xl font-bold text-center text-white mb-12 font-serif drop-shadow-[0_0_15px_rgba(168,85,247,0.6)]" style={{ fontFamily: "'Cinzel', serif" }}>
+              A Jornada e o Propósito
+            </h3>
+            
+            <div className="space-y-6 text-gray-300 text-lg leading-relaxed text-justify md:text-center">
+              <p>
+                O <strong>ArcaneVoid</strong> não é apenas um sistema de gerenciamento; é a materialização de um conceito profundo sobre o poder do Role-Playing Game (RPG). 
+                O projeto nasceu com o propósito de facilitar o acesso ao <strong>RPG Terapêutico</strong>, uma ferramenta amplamente utilizada na psicologia para o desenvolvimento de habilidades sociais, empatia e resolução de conflitos em um ambiente seguro.
+              </p>
+              <p>
+                O grande desafio técnico foi unificar duas pontas distintas: a necessidade de um <strong>acervo seguro e local</strong> (onde o mestre guarda seus livros e mapas sem depender da internet) e a <strong>interatividade em tempo real</strong> (onde a mesa se reúne para jogar). Para superar isso, integramos a robustez do Lazarus e do PostgreSQL com a agilidade do React e WebSockets, criando um ecossistema híbrido completo.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* CARROSSEL DE IMAGENS (AJUSTADO) */}
+        <section className="relative z-10 bg-[#0a0416]/98 backdrop-blur-xl py-24">
+          <div className="max-w-4xl mx-auto px-6">
             <h3 className="text-4xl font-bold text-center text-white mb-12 font-serif" style={{ fontFamily: "'Cinzel', serif" }}>
               Conheça a Interface
             </h3>
             
-            {/* CONTAINER DO CARROSSEL */}
-            <div className="relative bg-[#120a1f]/90 p-4 rounded-2xl border border-purple-500/30 shadow-2xl flex flex-col items-center">
+            <div className="relative bg-[#120a1f]/90 p-4 rounded-2xl border border-purple-500/40 shadow-[0_0_40px_rgba(147,51,234,0.2)] flex flex-col items-center">
               
-              <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-gray-700/50 bg-black flex items-center justify-center">
-                {/* Imagem Atual */}
+              {/* Container do Carrossel com Tamanho Controlado */}
+              <div className="relative w-full h-[300px] md:h-[450px] rounded-xl overflow-hidden border border-gray-700/50 bg-black flex items-center justify-center">
                 <img 
                   src={imagensCarrossel[slideAtual].src} 
                   alt={imagensCarrossel[slideAtual].alt} 
-                  className="w-full h-full object-cover transition-opacity duration-500"
-                  // Se a imagem não existir, mostra um fundo cinza com texto
+                  className="w-full h-full object-contain" // OBJECT-CONTAIN NÃO ESTICA A IMAGEM
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = 'https://via.placeholder.com/1280x720/1a1225/a855f7?text=Adicione+a+imagem+na+pasta+public';
                   }}
                 />
 
-                {/* Título da Imagem (Sobreposta) */}
                 <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/90 to-transparent p-6 text-center">
                   <p className="text-white font-arcane tracking-widest text-lg">{imagensCarrossel[slideAtual].titulo}</p>
                 </div>
 
-                {/* Setas de Navegação */}
-                <button 
-                  onClick={slideAnterior} 
-                  className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/50 hover:bg-[#9333ea] rounded-full flex items-center justify-center text-white backdrop-blur-sm transition-all"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+                <button onClick={slideAnterior} className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/60 hover:bg-[#9333ea] rounded-full flex items-center justify-center text-white backdrop-blur-md transition-all border border-purple-500/30">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
                 </button>
-                <button 
-                  onClick={proximoSlide} 
-                  className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/50 hover:bg-[#9333ea] rounded-full flex items-center justify-center text-white backdrop-blur-sm transition-all"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                <button onClick={proximoSlide} className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/60 hover:bg-[#9333ea] rounded-full flex items-center justify-center text-white backdrop-blur-md transition-all border border-purple-500/30">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
                 </button>
               </div>
 
-              {/* Bolinhas Indicadoras */}
               <div className="flex gap-3 mt-6">
                 {imagensCarrossel.map((_, index) => (
                   <button 
                     key={index} 
                     onClick={() => setSlideAtual(index)}
-                    className={`w-3 h-3 rounded-full transition-all ${slideAtual === index ? 'bg-[#a855f7] scale-125' : 'bg-gray-600 hover:bg-gray-400'}`}
+                    className={`w-3 h-3 rounded-full transition-all ${slideAtual === index ? 'bg-[#a855f7] scale-125 shadow-[0_0_10px_rgba(168,85,247,0.8)]' : 'bg-gray-600 hover:bg-gray-400'}`}
                   />
                 ))}
               </div>
-
             </div>
           </div>
         </section>
 
-        {/* SEÇÃO 3: FUNCIONALIDADES */}
-        <section className="relative z-10 bg-[#0a0416]/98 backdrop-blur-xl py-24">
-          <div className="max-w-6xl mx-auto px-6">
-            <h3 className="text-4xl font-bold text-center text-white mb-16 font-serif" style={{ fontFamily: "'Cinzel', serif" }}>
+        {/* SEÇÃO DE RECURSOS (TEXTOS CORRIGIDOS) */}
+        <section className="relative z-10 bg-[#0d0714]/95 backdrop-blur-xl py-24 overflow-hidden">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl bg-purple-900/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+          <div className="max-w-6xl mx-auto px-6 relative z-20">
+            <h3 className="text-4xl font-bold text-center text-white mb-16 font-serif drop-shadow-[0_0_15px_rgba(168,85,247,0.6)]" style={{ fontFamily: "'Cinzel', serif" }}>
               Recursos do Sistema
             </h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-              <div className="bg-[#120a1f]/90 p-8 rounded-2xl border border-purple-500/30 hover:border-[#a855f7] transition-colors shadow-2xl">
+              {/* Desktop */}
+              <div className="bg-[#120a1f]/90 p-8 rounded-2xl border border-purple-500/30 hover:border-[#a855f7] transition-colors shadow-2xl relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <h4 className="text-2xl font-bold text-white mb-4 border-b border-purple-500/30 pb-2">Desktop (Lazarus)</h4>
                 <ul className="text-gray-300 space-y-3 mt-4 text-sm leading-relaxed">
                   <li><strong className="text-purple-300">Gerenciamento de Acervo:</strong> Faça upload e organize livros, mapas, tokens e fichas.</li>
                   <li><strong className="text-purple-300">Histórico e Favoritos:</strong> Acesse rapidamente os conteúdos que você mais usa.</li>
-                  <li><strong className="text-purple-300">Análise de Dados:</strong> Monitore o engajamento e as estatísticas de uso.</li>
+                  <li><strong className="text-purple-300">Downloads Rápidos:</strong> Armazene e baixe recursos para suas sessões.</li>
                 </ul>
               </div>
 
-              <div className="bg-[#120a1f]/90 p-8 rounded-2xl border border-purple-500/30 hover:border-[#a855f7] transition-colors shadow-2xl">
+              {/* Web */}
+              <div className="bg-[#120a1f]/90 p-8 rounded-2xl border border-purple-500/30 hover:border-[#a855f7] transition-colors shadow-2xl relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <h4 className="text-2xl font-bold text-white mb-4 border-b border-purple-500/30 pb-2">Web (Discord-like)</h4>
                 <ul className="text-gray-300 space-y-3 mt-4 text-sm leading-relaxed">
                   <li><strong className="text-purple-300">Comunicação em Tempo Real:</strong> Chat de texto e canais integrados.</li>
                   <li><strong className="text-purple-300">Chamadas de Voz e Vídeo:</strong> Conecte-se com sua mesa via WebRTC.</li>
                   <li><strong className="text-purple-300">Bot de Dados:</strong> Role dados no chat usando "!d20".</li>
-                  <li><strong className="text-purple-300">Mesa Interativa:</strong> Posicione tokens e gerencie cenas no navegador.</li>
+                  <li><strong className="text-purple-300">Mesa Interativa:</strong> Posicione tokens e compartilhe telas.</li>
+                  <li><strong className="text-purple-300">Criação em Pixel Art:</strong> Crie e customize mapas e tokens diretamente na plataforma.</li>
                 </ul>
               </div>
             </div>
