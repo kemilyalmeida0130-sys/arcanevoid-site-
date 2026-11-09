@@ -6,7 +6,7 @@ export default function LandingPage() {
   const linkSistemaWeb = "https://arcanevoid.vercel.app";
 
   const imagensCarrossel = [
-    { src: "/print-lazarus.png", alt: "Sistema Desktop Lazarus", titulo: "Gerenciamento Desktop" },
+     { src: "/print-lazarus.png", alt: "Sistema Desktop Lazarus", titulo: "Gerenciamento Desktop" },
     { src: "/print-web-chat.png", alt: "Tela principal web", titulo: "O véu entre os mundos se abre para aqueles que ousam sonhar." },
     { src: "/print-web-mesa.png", alt: "Chat da Mesa Virtual", titulo: "Chat em Tempo Real" }
   ];
@@ -20,8 +20,8 @@ export default function LandingPage() {
     <div className="relative min-h-screen bg-[#0a0416] font-sans flex flex-col overflow-x-hidden">
       <ThreeBackground />
       
-      {/* Overlay de gradiente para manter o texto legível */}
-      <div className="fixed inset-0 z-0 bg-gradient-to-b from-[#0a0416]/70 via-[#0a0416]/90 to-[#0a0416] pointer-events-none"></div>
+      {/* Overlay escuro para garantir leitura do texto sobre o 3D */}
+      <div className="fixed inset-0 z-0 bg-gradient-to-b from-[#0a0416]/60 via-[#0a0416]/85 to-[#0a0416] pointer-events-none"></div>
 
       <div className="relative z-10 flex flex-col">
         
@@ -57,12 +57,8 @@ export default function LandingPage() {
           </div>
         </main>
 
-        {/* NOVA SEÇÃO: A JORNADA (RPG e Psicologia) */}
+        {/* SEÇÃO: A JORNADA */}
         <section className="relative z-10 bg-[#0d0714]/95 backdrop-blur-xl border-t border-purple-500/20 py-24 overflow-hidden">
-          {/* Efeito 3D CSS de fundo */}
-          <div className="absolute top-10 left-10 w-64 h-64 bg-purple-600/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-10 right-10 w-80 h-80 bg-blue-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-
           <div className="max-w-5xl mx-auto px-6 relative z-20">
             <h3 className="text-4xl font-bold text-center text-white mb-12 font-serif drop-shadow-[0_0_15px_rgba(168,85,247,0.6)]" style={{ fontFamily: "'Cinzel', serif" }}>
               A Jornada e o Propósito
@@ -70,17 +66,20 @@ export default function LandingPage() {
             
             <div className="space-y-6 text-gray-300 text-lg leading-relaxed text-justify md:text-center">
               <p>
-                O <strong>ArcaneVoid</strong> não é apenas um sistema de gerenciamento; é a materialização de um conceito profundo sobre o poder do Role-Playing Game (RPG). 
+                O projeto iniciou como uma simples ideia para a conclusão do curso (TCC), mas, pouco a pouco, fui me envolvendo cada vez mais e transformando o ArcaneVoid em algo muito maior e mais completo do que imaginei.
+              </p>
+              <p>
+                Ele não é apenas um sistema de gerenciamento; é a materialização de um conceito profundo sobre o poder do Role-Playing Game (RPG). 
                 O projeto nasceu com o propósito de facilitar o acesso ao <strong>RPG Terapêutico</strong>, uma ferramenta amplamente utilizada na psicologia para o desenvolvimento de habilidades sociais, empatia e resolução de conflitos em um ambiente seguro.
               </p>
               <p>
-                O grande desafio técnico foi unificar duas pontas distintas: a necessidade de um <strong>acervo seguro e local</strong> (onde o mestre guarda seus livros e mapas sem depender da internet) e a <strong>interatividade em tempo real</strong> (onde a mesa se reúne para jogar). Para superar isso, integramos a robustez do Lazarus e do PostgreSQL com a agilidade do React e WebSockets, criando um ecossistema híbrido completo.
+                O grande desafio técnico foi unificar duas pontas distintas: a necessidade de um <strong>acervo seguro e local</strong> (onde o mestre guarda seus livros e mapas) e a <strong>interatividade em tempo real</strong> (onde a mesa se reúne para jogar). Para superar isso, integramos a robustez do Lazarus e do PostgreSQL com a agilidade do React e WebSockets.
               </p>
             </div>
           </div>
         </section>
 
-        {/* CARROSSEL DE IMAGENS (AJUSTADO) */}
+        {/* CARROSSEL */}
         <section className="relative z-10 bg-[#0a0416]/98 backdrop-blur-xl py-24">
           <div className="max-w-4xl mx-auto px-6">
             <h3 className="text-4xl font-bold text-center text-white mb-12 font-serif" style={{ fontFamily: "'Cinzel', serif" }}>
@@ -88,22 +87,18 @@ export default function LandingPage() {
             </h3>
             
             <div className="relative bg-[#120a1f]/90 p-4 rounded-2xl border border-purple-500/40 shadow-[0_0_40px_rgba(147,51,234,0.2)] flex flex-col items-center">
-              
-              {/* Container do Carrossel com Tamanho Controlado */}
               <div className="relative w-full h-[300px] md:h-[450px] rounded-xl overflow-hidden border border-gray-700/50 bg-black flex items-center justify-center">
                 <img 
                   src={imagensCarrossel[slideAtual].src} 
                   alt={imagensCarrossel[slideAtual].alt} 
-                  className="w-full h-full object-contain" // OBJECT-CONTAIN NÃO ESTICA A IMAGEM
+                  className="w-full h-full object-contain"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = 'https://via.placeholder.com/1280x720/1a1225/a855f7?text=Adicione+a+imagem+na+pasta+public';
                   }}
                 />
-
                 <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/90 to-transparent p-6 text-center">
                   <p className="text-white font-arcane tracking-widest text-lg">{imagensCarrossel[slideAtual].titulo}</p>
                 </div>
-
                 <button onClick={slideAnterior} className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/60 hover:bg-[#9333ea] rounded-full flex items-center justify-center text-white backdrop-blur-md transition-all border border-purple-500/30">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
                 </button>
@@ -111,7 +106,6 @@ export default function LandingPage() {
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
                 </button>
               </div>
-
               <div className="flex gap-3 mt-6">
                 {imagensCarrossel.map((_, index) => (
                   <button 
@@ -125,19 +119,15 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* SEÇÃO DE RECURSOS (TEXTOS CORRIGIDOS) */}
+        {/* RECURSOS */}
         <section className="relative z-10 bg-[#0d0714]/95 backdrop-blur-xl py-24 overflow-hidden">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl bg-purple-900/10 rounded-full blur-[100px] pointer-events-none"></div>
-
           <div className="max-w-6xl mx-auto px-6 relative z-20">
             <h3 className="text-4xl font-bold text-center text-white mb-16 font-serif drop-shadow-[0_0_15px_rgba(168,85,247,0.6)]" style={{ fontFamily: "'Cinzel', serif" }}>
               Recursos do Sistema
             </h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-              {/* Desktop */}
               <div className="bg-[#120a1f]/90 p-8 rounded-2xl border border-purple-500/30 hover:border-[#a855f7] transition-colors shadow-2xl relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <h4 className="text-2xl font-bold text-white mb-4 border-b border-purple-500/30 pb-2">Desktop (Lazarus)</h4>
                 <ul className="text-gray-300 space-y-3 mt-4 text-sm leading-relaxed">
                   <li><strong className="text-purple-300">Gerenciamento de Acervo:</strong> Faça upload e organize livros, mapas, tokens e fichas.</li>
@@ -146,9 +136,7 @@ export default function LandingPage() {
                 </ul>
               </div>
 
-              {/* Web */}
               <div className="bg-[#120a1f]/90 p-8 rounded-2xl border border-purple-500/30 hover:border-[#a855f7] transition-colors shadow-2xl relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <h4 className="text-2xl font-bold text-white mb-4 border-b border-purple-500/30 pb-2">Web (Discord-like)</h4>
                 <ul className="text-gray-300 space-y-3 mt-4 text-sm leading-relaxed">
                   <li><strong className="text-purple-300">Comunicação em Tempo Real:</strong> Chat de texto e canais integrados.</li>
@@ -162,8 +150,12 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <footer className="relative z-10 text-center py-10 border-t border-[#2b1f3d] text-gray-500 text-sm bg-[#0a0416]">
-          <p>ArcaneVoid &copy; {new Date().getFullYear()} - Desenvolvido como Projeto de TCC.</p>
+        {/* RODAPÉ ATUALIZADO */}
+        <footer className="relative z-10 text-center py-10 border-t border-[#2b1f3d] text-gray-400 text-sm bg-[#0a0416]">
+          <p className="mb-2">ArcaneVoid &copy; {new Date().getFullYear()} - Desenvolvido por <strong className="text-white">Kemily De Almeida</strong> como Projeto de TCC.</p>
+          <p>
+            Instagram: <a href="https://instagram.com/amantedaarte13" target="_blank" rel="noreferrer" className="text-purple-400 hover:text-purple-300 transition-colors font-bold">@amantedaarte13</a>
+          </p>
         </footer>
       </div>
     </div>
