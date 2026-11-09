@@ -1,9 +1,27 @@
+import { useState } from 'react';
 import ThreeBackground from './ThreeBackground';
 
 export default function LandingPage() {
-  // Lembre-se de colocar &confirm=t no final se o Drive avisar sobre vírus
+  // Lembre-se do &confirm=t para pular o aviso de vírus do Google Drive
   const linkDownloadLazarus = "https://drive.google.com/uc?export=download&id=1cYb4LcaTX8_FYneZTf89SXIyhJ7X-TP2&confirm=t";
   const linkSistemaWeb = "https://arcanevoid.vercel.app";
+
+  // 🔥 IMAGENS DO CARROSSEL (Coloque as suas fotos na pasta public com esses nomes)
+  const imagensCarrossel = [
+    { src: "/print-lazarus.png", alt: "Sistema Desktop Lazarus", titulo: "Gerenciamento Desktop" },
+    { src: "/print-web-chat.png", alt: "Chat da Mesa Virtual", titulo: "Chat em Tempo Real" },
+    { src: "/print-web-mesa.png", alt: "Mesa Virtual e Tokens", titulo: "Mesa Interativa" }
+  ];
+
+  const [slideAtual, setSlideAtual] = useState(0);
+
+  const proximoSlide = () => {
+    setSlideAtual((prev) => (prev === imagensCarrossel.length - 1 ? 0 : prev + 1));
+  };
+
+  const slideAnterior = () => {
+    setSlideAtual((prev) => (prev === 0 ? imagensCarrossel.length - 1 : prev - 1));
+  };
 
   return (
     <div className="relative min-h-screen bg-[#0a0416] font-sans flex flex-col overflow-x-hidden">
@@ -13,7 +31,7 @@ export default function LandingPage() {
 
       <div className="relative z-10 flex flex-col">
         
-        {/* CABEÇALHO (SEM ÍCONE) */}
+        {/* CABEÇALHO */}
         <header className="w-full px-8 py-6 flex justify-between items-center backdrop-blur-md bg-black/40 border-b border-purple-500/20 sticky top-0 z-50">
           <div className="flex items-center">
             <h1 className="text-3xl font-bold text-white tracking-widest drop-shadow-[0_0_10px_rgba(168,85,247,0.8)]" style={{ fontFamily: "'Cinzel', serif" }}>ARCANEVOID</h1>
@@ -47,33 +65,59 @@ export default function LandingPage() {
           </div>
         </main>
 
-        {/* SEÇÃO 2: GALERIA DE IMAGENS (PREVIEW) */}
+        {/* SEÇÃO 2: CARROSSEL DE IMAGENS */}
         <section className="relative z-10 bg-[#0d0714]/95 backdrop-blur-xl border-t border-purple-500/20 py-24">
-          <div className="max-w-6xl mx-auto px-6">
-            <h3 className="text-4xl font-bold text-center text-white mb-16 font-serif" style={{ fontFamily: "'Cinzel', serif" }}>
+          <div className="max-w-5xl mx-auto px-6">
+            <h3 className="text-4xl font-bold text-center text-white mb-12 font-serif" style={{ fontFamily: "'Cinzel', serif" }}>
               Conheça a Interface
             </h3>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-              {/* Print Lazarus */}
-              <div className="bg-[#120a1f]/90 p-4 rounded-2xl border border-purple-500/30 hover:border-[#a855f7] transition-colors shadow-2xl">
-                <div className="rounded-xl overflow-hidden mb-4 border border-gray-700/50 bg-black flex items-center justify-center aspect-video">
-                  {/* 🔥 SUBSTITUA O NOME ABAIXO PELO NOME DA FOTO QUE VOCÊ SALVOU NA PASTA PUBLIC */}
-                  <img src="/print-lazarus.png" alt="Interface do Sistema Desktop (Lazarus)" className="w-full h-full object-cover" />
+            {/* CONTAINER DO CARROSSEL */}
+            <div className="relative bg-[#120a1f]/90 p-4 rounded-2xl border border-purple-500/30 shadow-2xl flex flex-col items-center">
+              
+              <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-gray-700/50 bg-black flex items-center justify-center">
+                {/* Imagem Atual */}
+                <img 
+                  src={imagensCarrossel[slideAtual].src} 
+                  alt={imagensCarrossel[slideAtual].alt} 
+                  className="w-full h-full object-cover transition-opacity duration-500"
+                  // Se a imagem não existir, mostra um fundo cinza com texto
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = 'https://via.placeholder.com/1280x720/1a1225/a855f7?text=Adicione+a+imagem+na+pasta+public';
+                  }}
+                />
+
+                {/* Título da Imagem (Sobreposta) */}
+                <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/90 to-transparent p-6 text-center">
+                  <p className="text-white font-arcane tracking-widest text-lg">{imagensCarrossel[slideAtual].titulo}</p>
                 </div>
-                <h4 className="text-xl font-bold text-white text-center mb-2">Aplicação Desktop</h4>
-                <p className="text-sm text-gray-400 text-center">Gerenciamento de arquivos, banco de dados e livros.</p>
+
+                {/* Setas de Navegação */}
+                <button 
+                  onClick={slideAnterior} 
+                  className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/50 hover:bg-[#9333ea] rounded-full flex items-center justify-center text-white backdrop-blur-sm transition-all"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+                </button>
+                <button 
+                  onClick={proximoSlide} 
+                  className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/50 hover:bg-[#9333ea] rounded-full flex items-center justify-center text-white backdrop-blur-sm transition-all"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                </button>
               </div>
 
-              {/* Print Web */}
-              <div className="bg-[#120a1f]/90 p-4 rounded-2xl border border-purple-500/30 hover:border-[#a855f7] transition-colors shadow-2xl">
-                <div className="rounded-xl overflow-hidden mb-4 border border-gray-700/50 bg-black flex items-center justify-center aspect-video">
-                  {/* 🔥 SUBSTITUA O NOME ABAIXO PELO NOME DA FOTO QUE VOCÊ SALVOU NA PASTA PUBLIC */}
-                  <img src="/print-web.png" alt="Interface da Mesa Virtual Web" className="w-full h-full object-cover" />
-                </div>
-                <h4 className="text-xl font-bold text-white text-center mb-2">Mesa Virtual Web</h4>
-                <p className="text-sm text-gray-400 text-center">Chat em tempo real, voz, bot de dados e mapas.</p>
+              {/* Bolinhas Indicadoras */}
+              <div className="flex gap-3 mt-6">
+                {imagensCarrossel.map((_, index) => (
+                  <button 
+                    key={index} 
+                    onClick={() => setSlideAtual(index)}
+                    className={`w-3 h-3 rounded-full transition-all ${slideAtual === index ? 'bg-[#a855f7] scale-125' : 'bg-gray-600 hover:bg-gray-400'}`}
+                  />
+                ))}
               </div>
+
             </div>
           </div>
         </section>
